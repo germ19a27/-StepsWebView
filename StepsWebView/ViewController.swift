@@ -7,14 +7,46 @@
 //
 
 import UIKit
+import WebKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var webWeb: WKWebView!
+    @IBOutlet weak var txtWeb: UITextField!
+    @IBAction func btnWeb(_ sender: Any) {
+        
+        let address: String = txtWeb.text!
+        if address == "" {
+            let  alertController = UIAlertController(title: "Invalid entry",
+                                                     message: "Please enter a valid URL",
+                                                     preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        else{
+            let userurl = URL(string: address)!
+            webWeb.load(URLRequest(url: userurl))
+        }
+        
+        for textField in self.view.subviews where textField is UITextField {
+            textField.resignFirstResponder()
+        }
+        
+        }
+        
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let starturl = URL(string: "https://www.bbc.co.uk")!
+        webWeb.load(URLRequest(url: starturl))
+        
     }
 
-
 }
+
 
